@@ -21,13 +21,13 @@ module.exports = (n) => {
     const activeDizzecks = _.sampleSize(dizzecks, n);
     let activePlayas = _.sampleSize(playas, n);
     const waitingPlayas = _.xor(activePlayas, playas);
-    activePlayas = activePlayas.map((playa, i) => ({
+    activePlayas = _.map(activePlayas, ((playa, i) => ({
         playa,
-        dizzeck: activeDizzecks[i]
-    }));
+        dizzeck: _.nth(activeDizzecks, i)
+    })));
 
     return {
         playas: activePlayas,
-        observas: observas.concat(waitingPlayas)
+        observas: _.concat(observas, waitingPlayas)
     }
 }
