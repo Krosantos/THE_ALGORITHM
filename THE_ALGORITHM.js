@@ -1,34 +1,48 @@
 const _ = require('lodash')
+const brain = require('brain.js');
+const NN = new brain.NeuralNetwork();
 
-const dizzecks = [
-    'Merfolk',
-    'Jim Davis',
-    'SpellSlinger',
-    'Explore',
-    'GLORY'
-]
+const run = (n) => {
+    NN.train(require('./spain'));
 
-const playas = [
-    'J-Bar',
-    'Tymko'
-]
+    const dizzecks = [
+        'Merfolk',
+        'Jim Davis',
+        'SpellSlinger',
+        'Explore',
+        'GLORY'
+    ]
 
-const observas = [
-    'Aaron'
-]
+    const playas = [
+        'J-Bar',
+        'Tymko',
+        'Aaron'
+    ]
 
-module.exports = (n) => {
+    let observas = [
+        'Aaron'
+    ]
+
     const activeDizzecks = _.sampleSize(dizzecks, n);
     let activePlayas = _.sampleSize(playas, n);
     const waitingPlayas = _.xor(activePlayas, playas);
-    const playas = _.map(activePlayas, ((playa, i) => ({
+    activePlayas = _.map(activePlayas, ((playa, i) => ({
         playa,
         dizzeck: _.nth(activeDizzecks, i)
     })));
-    const observas = _.concat(observas, waitingPlayas);
+    observas = _.concat(observas, waitingPlayas);
+
+    console.log(NN.run({
+        playa1: 1,
+        playa2: 2,
+        dizzeck1: 2,
+        dizzeck2: 1
+    }));
 
     return {
-        playas,
+        playas: activePlayas,
         observas
     }
 }
+
+module.exports = run;
