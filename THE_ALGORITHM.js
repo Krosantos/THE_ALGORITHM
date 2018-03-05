@@ -30,7 +30,6 @@ const run = (n) => {
         playa,
         dizzeck: _.nth(activeDizzecks, i)
     })));
-    observas = _.concat(observas, waitingPlayas);
 
     console.log(NN.run({
         playa1: 1,
@@ -41,7 +40,7 @@ const run = (n) => {
 
     return {
         playas: activePlayas,
-        observas
+        observas: waitingPlayas
     }
 }
 
