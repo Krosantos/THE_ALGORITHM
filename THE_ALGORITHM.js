@@ -1,10 +1,15 @@
 const _ = require('lodash')
-const brain = require('brain.js');
-const NN = new brain.NeuralNetwork();
+const bayes = require('bayes')
+const classifier = bayes({ tokenizer: _.identity })
+
+_.forEach(require('./gamesHistory'), (game) =>
+    classifier.learn(game.deck1, game.winner)
+);
+
+const exampleCards = ['Take Inventory', 'Khenra Scrapper', 'Hour of Promise', 'Mummy Paramount'];
+console.log(classifier.categorize(exampleCards));
 
 const run = (n) => {
-    NN.train(require('./spain'));
-
     const dizzecks = [
         'Merfolk',
         'Jim Davis',
