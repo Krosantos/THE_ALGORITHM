@@ -6,6 +6,7 @@ classifier.trainGames(require('./gamesHistory'));
 
 const exampleCards = ['Take Inventory', 'Khenra Scrapper', 'Hour of Promise', 'Mummy Paramount'];
 console.log(classifier.test(exampleCards, 'Aaron', 'Tymko'));
+console.log(classifier.test(exampleCards, 'Tymko', 'Aaron'));
 console.log(classifier.playerSkill);
 
 const run = (n) => {

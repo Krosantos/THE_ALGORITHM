@@ -52,12 +52,17 @@ module.exports = class NaiveBayesClassifier {
     test(cards, player1, player2) {
         const totalWins = _.sum(_.values(this.winTable));
         const totalLosses = _.sum(_.values(this.lossTable));
-        const P_win = 1 - this.playerSkill[player1] / this.playerSkill[player2];
+        const P_win = this.playerSkill[player1] / (this.playerSkill[player1] + this.playerSkill[player2]);
         return _.reduce(cards, (result, card) => {
             const timesCardSeen = this.winTable[card] + this.lossTable[card];
             if (!timesCardSeen) {
                 return result;
             }
+
+            // What percentage of games that this card is in are wins?
+            let cardQuality = this.winTable[card] / timesCardSeen;
+            // Assume no card can be worse than a 20% chance of winning -- prevents convergence to zero
+            cardQuality = Math.max(cardQuality, 0.2);
 
             const P_cardGivenWin = Math.max(this.winTable[card] / totalWins, 0.1); // assume no one card can possibly be worse than a 20% chance of winning
             const P_card = timesCardSeen / (totalWins + totalLosses);
