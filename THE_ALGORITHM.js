@@ -1,13 +1,12 @@
 const _ = require('lodash')
-const bayes = require('bayes')
-const classifier = bayes({ tokenizer: _.identity })
+const NaiveBayesClassifier = require('./naive_bayes')
+const classifier = new NaiveBayesClassifier()
 
-_.forEach(require('./gamesHistory'), (game) =>
-    classifier.learn(game.deck1, game.winner)
-);
+classifier.trainGames(require('./gamesHistory'));
 
 const exampleCards = ['Take Inventory', 'Khenra Scrapper', 'Hour of Promise', 'Mummy Paramount'];
-console.log(classifier.categorize(exampleCards));
+console.log(classifier.test(exampleCards, 'Aaron', 'Tymko'));
+console.log(classifier.playerSkill);
 
 const run = (n) => {
     const dizzecks = [
@@ -35,13 +34,6 @@ const run = (n) => {
         playa,
         dizzeck: _.nth(activeDizzecks, i)
     })));
-
-    console.log(NN.run({
-        playa1: 1,
-        playa2: 2,
-        dizzeck1: 2,
-        dizzeck2: 1
-    }));
 
     return {
         playas: activePlayas,

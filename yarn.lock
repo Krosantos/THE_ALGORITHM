@@ -6,6 +6,10 @@ acorn@^5.1.1:
   version "5.5.0"
   resolved "https://artifacts.notjet.net/api/npm/npm/acorn/-/acorn-5.5.0.tgz#1abb587fbf051f94e3de20e6b26ef910b1828298"
 
+bayes-classifier@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/bayes-classifier/-/bayes-classifier-0.0.5.tgz#35b94a5cbfbf6143561a5759556eeb3c2ec6e72e"
+
 bayes@^0.0.7:
   version "0.0.7"
   resolved "https://artifacts.notjet.net/api/npm/npm/bayes/-/bayes-0.0.7.tgz#357bf74aa887e796de4bf5e922c5631090af8a00"

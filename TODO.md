@@ -1,7 +1,6 @@
-- Switch NN use to a Bayes probabilistic regressor:
-  * Order of cards does not matter
-  * Cards are individually represented to a likelihood of winning
-  * Player is another factor
-  * Might need to implement a one-hot encoder in order to map from card/player names to IDs
+TODO:
 - Add a utility that automatically pulls all cards by deck name from Sheets
 - Actually add some historical games
+
+Core Improvements:
+- Find a way to cap the results of the Naive Bayes results such that it can be used as a relevant comparison between multiple players/decks

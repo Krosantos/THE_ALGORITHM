@@ -1,19 +1,23 @@
 module.exports = [
     {
+        player1: 'Aaron',
+        player2: 'Tymko',
         cards: [
             'Take Inventory',
             'Defiant Khenra',
             'Stensia Banquet'
         ],
-        winner: true
+        winner: 'Aaron'
     },
     {
+        player1: 'Aaron',
+        player2: 'Tymko',
         cards: [
             'Defiant Khenra',
             'Furyblade Vampire',
             'Hour of Promise',
             'Khenra Scrapper'
         ],
-        winner: false
+        winner: 'Tymko'
     }
 ];

@@ -8,8 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "bayes": "^0.0.7",
-    "brain.js": "^1.1.1",
+    "bayes-classifier": "^0.0.5",
     "lodash": "^4.17.5"
   }
 }
