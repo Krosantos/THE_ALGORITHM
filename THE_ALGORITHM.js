@@ -1,29 +1,18 @@
 const _ = require('lodash')
+const decks = require('./decks');
 const NaiveBayesClassifier = require('./naive_bayes')
 const classifier = new NaiveBayesClassifier()
 
 classifier.trainGames(require('./gamesHistory'));
 
-const exampleCards = ['Take Inventory', 'Khenra Scrapper', 'Hour of Promise', 'Mummy Paramount'];
-console.log(classifier.test(exampleCards, 'Aaron', 'Tymko'));
-console.log(classifier.test(exampleCards, 'Tymko', 'Aaron'));
-console.log(classifier.playerSkill);
-
 const run = (n) => {
-    const dizzecks = [
-        'Merfolk',
-        'Jim Davis',
-        'SpellSlinger',
-        'Explore',
-        'GLORY'
-    ]
+    const dizzecks = _.keys(decks);
 
     const playas = [
         'J-Bar',
         'Tymko',
         'Aaron'
     ]
-
     let observas = [
         'Aaron'
     ]
@@ -36,10 +25,12 @@ const run = (n) => {
         dizzeck: _.nth(activeDizzecks, i)
     })));
 
-    return {
+    console.log(classifier.predictGame(activePlayas));
+    console.log({
         playas: activePlayas,
         observas: waitingPlayas
-    }
+    });
 }
 
+run(2);
 module.exports = run;
