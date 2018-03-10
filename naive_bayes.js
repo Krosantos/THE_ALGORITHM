@@ -50,34 +50,20 @@ module.exports = class NaiveBayesClassifier {
     }
 
     test(cards, player1, player2) {
-        const totalWins = _.sum(_.values(this.winTable));
-        const totalLosses = _.sum(_.values(this.lossTable));
         const P_win = this.playerSkill[player1] / (this.playerSkill[player1] + this.playerSkill[player2]);
+        let P_winGivenCards = P_win;
+        let P_lossGivenCards = 1 - P_win;
 
-        let P_winGivenCards = 1;
-        let P_lossGivenCards = 1;
         _.forEach(cards, (card) => {
-            P_winGivenCards *= Math.max(this.winTable[card] / totalWins, 0.2); // assume no one card can possibly be worse than a 20% chance of winning
-            P_lossGivenCards *= this.lossTable[card] / totalLosses;
+            const timesCardSeen = (this.winTable[card] || 0) + (this.lossTable[card] || 0);
+            if (timesCardSeen) {
+                P_winGivenCards *= Math.max(this.winTable[card] || 0 / timesCardSeen, 0.2);
+                P_lossGivenCards *= Math.max(this.lossTable[card] || 0 / timesCardSeen, 0.2);
+            }
         });
 
-        return _.reduce(cards, (result, card) => {
-            const timesCardSeen = this.winTable[card] + this.lossTable[card];
-            if (!timesCardSeen) {
-                return result;
-            }
+        // TODO: include other deck into calculation
 
-            const P_cardGivenWin = Math.max(this.winTable[card] / totalWins, 0.1);
-
-            // What percentage of games that this card is in are wins?
-            let cardQuality = this.winTable[card] / timesCardSeen;
-            // Assume no card can be worse than a 20% chance of winning -- prevents convergence to zero
-            cardQuality = Math.max(cardQuality, 0.2);
-
-            const P_card = timesCardSeen / (totalWins + totalLosses);
-            const card_value = P_cardGivenWin / P_card;
-            return P_cardGivenWin * result;
-        }, P_win);
+        return P_winGivenCards / P_lossGivenCards;
     }
 }
-
